@@ -13,6 +13,9 @@
 
 import processing.serial.*;
 import java.util.Date;
+import controlP5.*;
+
+ControlP5 cp5;
 
 public static final short portIndex = 0;  // select the com port, 0 is the first port
 public static final String TIME_HEADER = "T"; //header for arduino serial time message 
@@ -25,10 +28,30 @@ long taskTime = 1500;
 
 void setup() {  
   size(400, 400);
+
+ // PFont font = createFont("arial",20);
+
+  cp5 = new ControlP5(this);
+  
+  cp5.addTextfield("textValue")
+     .setPosition(20,170)
+     .setSize(200,40)
+     .setFont(createFont("arial",20))
+     .setAutoClear(false)
+     ;
+
+                   cp5.addBang("clear")
+     .setPosition(240,170)
+     .setSize(80,40)
+     .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
+     ;    
+
   println(Serial.list());
   println(" Connecting to -> " + Serial.list()[portIndex]);
   myPort = new Serial(this,Serial.list()[portIndex], 9600);
   println(getTimeNow());
+
+
   taskTimer = millis();
 }
 
@@ -52,7 +75,7 @@ void draw() {
           sendMessage( "call", "PA7FRN"); 
           break;
         case 4:
-          sendMessage( "df"  , "dd_mm_yyyy");
+          sendMessage( "df"  , "ddMMMyyyy");
           break;
       }
       txStep++;
