@@ -36,7 +36,7 @@ void setup() {
 
   cp5 = new ControlP5(this);
   
-  cp5.addScrollableList("dropdown")
+  cp5.addScrollableList("ComPort")
      .setPosition(100, COMPORT_ROW)
      .setSize(200, 100)
      .setBarHeight(22)
@@ -129,7 +129,7 @@ void draw() {
   }
 }
 
-void dropdown(int n) {
+void ComPort(int n) {
   if (comConnected) {
     txBusy = true;
     comConnected = false;
@@ -141,7 +141,7 @@ void dropdown(int n) {
   println("-----------------------------");
   printArray(Serial.list());
   println("Connecting to -> " + Serial.list()[n]);
-  println(cp5.get(ScrollableList.class, "dropdown").getItem(n).get("text"));
+  println(cp5.get(ScrollableList.class, "ComPort").getItem(n).get("text"));
   println("-----------------------------");
   myPort = new Serial(this,Serial.list()[n], 9600);
   comConnected = true;
